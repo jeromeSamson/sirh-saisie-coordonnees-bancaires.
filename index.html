@@ -18,8 +18,14 @@
 
 <body class="container">
     <h1>SGP - Saisie des coordonnées bancaires</h1>
+    <div>
+        <select id="departements" nom="departements">
+            <option value=0>Tous</option>
+        </select>
+    </div>
+    <div class="row">
     <hr>
-    <table class="table table-hover">
+    <table class="table table-hover" border="2px black solid">
         <thead>
             <tr>
                 <td>Matricule</td>
@@ -72,6 +78,7 @@
         </div>
         <input type="hidden" id="matricule" value="">
     </form>
+    </div>
 </body>
 
 </html>

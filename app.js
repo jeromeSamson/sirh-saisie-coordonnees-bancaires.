@@ -1,20 +1,34 @@
 $(document).ready(function () {
     init();
+    initEvent();
 });
 
+function initEvent(){
+    $('select').on('change', function() {
+  getListCollabs(this.value);
+})
+}
 function init() {
     $("#save").on("click", function (e) {
         e.preventDefault();
         save();
     });
     updateBanqueInformation("", "", "");
-    getListCollabs();
+    getListCollabs(0);
+    getListDepartement();
 }
 
-function getListCollabs() {
-    $.get("http://localhost:8080/sgp/api/collaborateurs").done(function (data) {
+function getListCollabs(dep) {
+    if(dep==0){
+         $.get("http://localhost:8080/sgp/api/collaborateurs").done(function (data) {
         populateTable(data);
     });
+     }else{
+         $.get("http://localhost:8080/sgp/api/collaborateurs?departement="+dep).done(function (data) {
+        populateTable(data);
+    });
+     }
+   
 };
 
 function save() {
@@ -61,3 +75,17 @@ function updateBanqueInformation(bankData, matricule) {
         $("#iban").val(bankData.iban);
         $("#matricule").val(matricule);
 };
+
+function getListDepartement(){
+     $.getJSON("http://localhost:8080/sgp/api/departements").done(function (data) {
+        populateSelect(data);
+    });
+};
+
+function populateSelect(data){
+    $("#departements").find("option").slice(1).remove();
+    data.forEach(function(dep){
+         var deptAsOpt = "<option value='" + dep.id + "'>" + dep.nom + "</option>";
+    $("#departements").append(deptAsOpt);
+    },this)
+}; 
