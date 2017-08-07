@@ -31,6 +31,7 @@ function getListCollabs(dep) {
    
 };
 
+
 function save() {
     $.ajax({
         url: "http://localhost:8080/sgp/api/collaborateurs/" + encodeURIComponent($("#matricule").val()) + "/banque?banque=" + encodeURIComponent($("#banque").val()) + "&bic=" + encodeURIComponent($("#bic").val()) + "&iban=" + $("#iban").val(),
